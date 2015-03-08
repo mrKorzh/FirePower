@@ -182,4 +182,25 @@ public class FirePower {
     public void setCountInTime(int countInTime) {
         this.countInTime = countInTime;
     }
+
+    @Override
+    public String toString() {
+        return "type=" + type + ","
+                + "stateLongitude=" + stateLongitude + ","
+                + "stateLatitude=" + stateLatitude + ","
+                + "stateHeight=" + stateHeight + ","
+                + "rangeMax=" + rangeMax + ","
+                + "rangeMin=" + rangeMin + ","
+                + "azimutMax=" + azimutMax + ","
+                + "azimutMin=" + azimutMin + ","
+                + "placeAngleMax=" + placeAngleMax + ","
+                + "placeAngleMin=" + placeAngleMin + ","
+                + "operativnostMin=" + operativnostMin + ","
+                + "operativnostMax=" + operativnostMax + ","
+                + "chanceSuccessMin=" + chanceSuccessMin + ","
+                + "chanceSuccessMax=" + chanceSuccessMax + ","
+                + "chanceSuccessRatingResult=" + chanceSuccessRatingResult + ","
+                + "chanceFalseAlarm=" + chanceFalseAlarm + ","
+                + "countInTime=" + countInTime;
+    }
 }

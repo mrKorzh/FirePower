@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +28,15 @@ public class FirePowerController {
     private void sendToSpaceSituation(HttpServletRequest request) {
         spaceSituationClient.sendToSpaceSituation("sddwfwefwefew");
     }
+
+    @RequestMapping(value = "/getFirePowerList", method = RequestMethod.GET)
+    @ResponseBody
+    private String sendToControlCenter() {
+        // возвращаем список огневых средств
+        return firePowerDao.selectFirePowers().toString();
+    }
+
+
 
     @RequestMapping(value = "/test")  // тестирование бд, потом удалить
     private void testDB(HttpServletRequest request) {

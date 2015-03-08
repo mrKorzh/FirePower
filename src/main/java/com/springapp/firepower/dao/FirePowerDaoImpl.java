@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @Repository
 public class FirePowerDaoImpl implements FirePowerDao {
 
@@ -58,5 +62,26 @@ public class FirePowerDaoImpl implements FirePowerDao {
                 + "chanceSuccessRatingResult = " + firePower.getChanceSuccessRatingResult()
                 + "chanceFalseAlarm = " + firePower.getChanceFalseAlarm()
                 + "countInTime = " + firePower.getCountInTime());
+    }
+
+    @Override
+    public List<FirePower> selectFirePowers() {
+        String sql = "SELECT type, rangeMax, rangeMin, azimutMax, azimutMin, placeAngleMax, placeAngleMin" +
+                "  FROM firepowers";
+
+        List<FirePower> firePowerList = new ArrayList<>();
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
+        for (Map row : rows) {
+            FirePower firePower = new FirePower();
+            firePower.setRangeMax(Double.valueOf(row.get("rangeMax").toString()));
+            firePower.setRangeMin(Double.valueOf(row.get("rangeMin").toString()));
+            firePower.setAzimutMax(Double.valueOf(row.get("azimutMax").toString()));
+            firePower.setAzimutMin(Double.valueOf(row.get("azimutMin").toString()));
+            firePower.setPlaceAngleMax(Double.valueOf(row.get("placeAngleMax").toString()));
+            firePower.setPlaceAngleMin(Double.valueOf(row.get("placeAngleMin").toString()));
+            firePower.setType(Integer.valueOf(row.get("type").toString()));
+            firePowerList.add(firePower);
+        }
+        return firePowerList;
     }
 }
