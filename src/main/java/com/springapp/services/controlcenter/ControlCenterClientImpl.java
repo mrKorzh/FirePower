@@ -19,7 +19,6 @@ import java.util.List;
 @Component
 public class ControlCenterClientImpl implements ControlCenterClient {
 
-    //@Value("${services.controlcenter.url}")
     private String controlCenterServiceUrl = "http://localhost:8080";
 
     @Override

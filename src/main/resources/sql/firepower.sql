@@ -2,6 +2,7 @@ CREATE SEQUENCE seq_firepower START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE IF NOT EXISTS "public"."firepowers" (
   "id"         INT8 DEFAULT nextval('seq_firepower' :: REGCLASS) NOT NULL PRIMARY KEY,
+  "number"       INT8,
   "type"       INT8,
   "statelongitude"       NUMERIC,
   "statelatitude"       NUMERIC,

@@ -5,6 +5,8 @@ public class FirePower {
 
     private int id;
 
+    private int number;
+
     private int type;
 
     private double stateLongitude;
@@ -45,6 +47,14 @@ public class FirePower {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public int getType() {
@@ -185,22 +195,24 @@ public class FirePower {
 
     @Override
     public String toString() {
-        return "type=" + type + ","
-                + "stateLongitude=" + stateLongitude + ","
-                + "stateLatitude=" + stateLatitude + ","
-                + "stateHeight=" + stateHeight + ","
-                + "rangeMax=" + rangeMax + ","
-                + "rangeMin=" + rangeMin + ","
-                + "azimutMax=" + azimutMax + ","
-                + "azimutMin=" + azimutMin + ","
-                + "placeAngleMax=" + placeAngleMax + ","
-                + "placeAngleMin=" + placeAngleMin + ","
-                + "operativnostMin=" + operativnostMin + ","
-                + "operativnostMax=" + operativnostMax + ","
-                + "chanceSuccessMin=" + chanceSuccessMin + ","
-                + "chanceSuccessMax=" + chanceSuccessMax + ","
-                + "chanceSuccessRatingResult=" + chanceSuccessRatingResult + ","
-                + "chanceFalseAlarm=" + chanceFalseAlarm + ","
-                + "countInTime=" + countInTime;
+        return "{\"number\": \"" + number + "\", "
+                + "\"type\": \"" + type + "\", "
+                + "\"stateLongitude\": \"" + stateLongitude + "\", "
+                + "\"stateLatitude\": \"" + stateLatitude + "\", "
+                + "\"stateHeight\": \"" + stateHeight + "\", "
+                + "\"rangeMax\": \"" + rangeMax + "\", "
+                + "\"rangeMin\": \"" + rangeMin + "\", "
+                + "\"azimutMax\": \"" + azimutMax + "\", "
+                + "\"azimutMin\": \"" + azimutMin + "\", "
+                + "\"placeAngleMax\": \"" + placeAngleMax + "\", "
+                + "\"placeAngleMin\": \"" + placeAngleMin + "\", "
+                + "\"operativnostMin\": \"" + operativnostMin + "\", "
+                + "\"operativnostMax\": \"" + operativnostMax + "\", "
+                + "\"chanceSuccessMin\": \"" + chanceSuccessMin + "\", "
+                + "\"chanceSuccessMax\": \"" + chanceSuccessMax + "\", "
+                + "\"chanceSuccessRatingResult\": \"" + chanceSuccessRatingResult + "\", "
+                + "\"chanceFalseAlarm\": \"" + chanceFalseAlarm + "\", "
+                + "\"countInTime\": \"" + countInTime
+                + "\"}";
     }
 }

@@ -12,6 +12,7 @@ public class FirePowerRowMapper implements RowMapper<FirePower> {
     public FirePower mapRow(ResultSet resultSet, int numRow) throws SQLException {
         FirePower firePower = new FirePower();
         firePower.setId(resultSet.getInt("id"));
+        firePower.setNumber(resultSet.getInt("number"));
         firePower.setType(resultSet.getInt("type"));
         firePower.setStateLongitude(resultSet.getDouble("stateLongitude"));
         firePower.setStateLatitude(resultSet.getDouble("stateLatitude"));

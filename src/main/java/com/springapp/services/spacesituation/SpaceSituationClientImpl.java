@@ -22,7 +22,6 @@ import java.util.List;
 @Component
 public class SpaceSituationClientImpl implements SpaceSituationClient {
 
-    //@Value("${services.spacesituation.url}")
     private String spaceSituationServiceUrl = "http://192.168.1.157:80";
 
     @Autowired
@@ -31,7 +30,7 @@ public class SpaceSituationClientImpl implements SpaceSituationClient {
     @Override
     public void sendToSpaceSituation(String json) {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            HttpPost httpPost = new HttpPost(spaceSituationServiceUrl + "/situation/tmp");
+            HttpPost httpPost = new HttpPost(spaceSituationServiceUrl + "/kill");
 
             List<NameValuePair> nameValuePairs = new ArrayList<>();
             nameValuePairs.add(new BasicNameValuePair("json", json));
@@ -42,9 +41,6 @@ public class SpaceSituationClientImpl implements SpaceSituationClient {
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     try (InputStream inputStream = entity.getContent()) {
-                        String vovan = IOUtils.toString(inputStream, "UTF-8");
-                        System.out.println(vovan);
-                        controlCenterClient.sendToControlCenter(vovan);
                     }
                 }
             }

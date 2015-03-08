@@ -2,8 +2,11 @@ package com.springapp.services;
 
 import com.springapp.firepower.FirePower;
 import com.springapp.firepower.dao.FirePowerDaoImpl;
+import com.springapp.jackson.PostEntityFromControlCenter;
 import com.springapp.services.controlcenter.ControlCenterClient;
 import com.springapp.services.spacesituation.SpaceSituationClient;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/FirePowerService")
@@ -24,16 +29,38 @@ public class FirePowerController {
     @Autowired
     private SpaceSituationClient spaceSituationClient;
 
+    @Autowired
+    private ControlCenterClient controlCenterClient;
+
     @RequestMapping(value = "/fromControlCenter")
-    private void sendToSpaceSituation(HttpServletRequest request) {
-        spaceSituationClient.sendToSpaceSituation("sddwfwefwefew");
+    private void sendToSpaceSituation(HttpServletRequest request) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        List<PostEntityFromControlCenter> list = mapper.readValue(request.getReader().readLine(),
+                new TypeReference<List<PostEntityFromControlCenter>>() {
+                });
+        PostEntityFromControlCenter postEntityFromControlCenter = list.get(0);
+        String radialDistance = postEntityFromControlCenter.getRadial_distance();
+        String polarAngle = postEntityFromControlCenter.getPolar_angle();
+        String azimuthAngle = postEntityFromControlCenter.getAzimuth_angle();
+        String number = postEntityFromControlCenter.getNumber();
+
+        String jsonToSpaceSituation =
+                "{\"radial_distance\": \"" + radialDistance + "\", " +
+                "\"polar_angle\": \"" + polarAngle + "\", " +
+                "\"azimut_angle\": \"" + azimuthAngle + "\"" +
+                "}";
+        spaceSituationClient.sendToSpaceSituation(jsonToSpaceSituation);
+
+        // шлем на центр контроля сообщение что выстрелили
+        controlCenterClient.sendToControlCenter("Success");
     }
 
     @RequestMapping(value = "/getFirePowerList", method = RequestMethod.GET)
     @ResponseBody
     private String sendToControlCenter() {
         // возвращаем список огневых средств
-        return firePowerDao.selectFirePowers().toString();
+        String firePowersList = firePowerDao.selectFirePowers().toString();
+        return firePowersList;
     }
 
 

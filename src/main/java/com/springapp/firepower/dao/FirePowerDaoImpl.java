@@ -20,13 +20,14 @@ public class FirePowerDaoImpl implements FirePowerDao {
 
     @Override
     public void insertFirePower(FirePower firePower) {
-        String sql = "insert into firepowers (type, stateLongitude, stateLatitude, stateHeight, rangeMax, rangeMin, " +
+        String sql = "insert into firepowers (type, number, stateLongitude, stateLatitude, stateHeight, rangeMax, rangeMin, " +
                 "azimutMax, azimutMin, placeAngleMax, placeAngleMin, operativnostMin, operativnostMax, chanceSuccessMin, " +
                 "chanceSuccessMax, chanceSuccessRatingResult, chanceFalseAlarm, countInTime) " +
-                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(sql,
                 firePower.getType(),
+                firePower.getNumber(),
                 firePower.getStateLongitude(),
                 firePower.getStateLatitude(),
                 firePower.getStateHeight(),
@@ -46,6 +47,7 @@ public class FirePowerDaoImpl implements FirePowerDao {
 
         System.out.println("Created record: "
                 + "type = " + firePower.getType()
+                + "number = " + firePower.getNumber()
                 + "stateLongitude = " + firePower.getStateLongitude()
                 + "stateLatitude = " + firePower.getStateLatitude()
                 + "stateHeight = " + firePower.getStateHeight()
@@ -66,7 +68,7 @@ public class FirePowerDaoImpl implements FirePowerDao {
 
     @Override
     public List<FirePower> selectFirePowers() {
-        String sql = "SELECT type, rangeMax, rangeMin, azimutMax, azimutMin, placeAngleMax, placeAngleMin" +
+        String sql = "SELECT type, number, rangeMax, rangeMin, azimutMax, azimutMin, placeAngleMax, placeAngleMin" +
                 "  FROM firepowers";
 
         List<FirePower> firePowerList = new ArrayList<>();
@@ -80,6 +82,7 @@ public class FirePowerDaoImpl implements FirePowerDao {
             firePower.setPlaceAngleMax(Double.valueOf(row.get("placeAngleMax").toString()));
             firePower.setPlaceAngleMin(Double.valueOf(row.get("placeAngleMin").toString()));
             firePower.setType(Integer.valueOf(row.get("type").toString()));
+            firePower.setNumber(Integer.valueOf(row.get("number").toString()));
             firePowerList.add(firePower);
         }
         return firePowerList;
