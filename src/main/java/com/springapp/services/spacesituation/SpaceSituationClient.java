@@ -2,6 +2,6 @@ package com.springapp.services.spacesituation;
 
 public interface SpaceSituationClient {
 
-    void sendToSpaceSituation(String json);
+    void sendToSpaceSituation(String targets, String firepower);
 
 }

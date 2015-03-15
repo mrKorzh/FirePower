@@ -44,12 +44,21 @@ public class FirePowerController {
         String azimuthAngle = postEntityFromControlCenter.getAzimuth_angle();
         String number = postEntityFromControlCenter.getNumber();
 
-        String jsonToSpaceSituation =
+        // получили firepower для выстрела
+        FirePower firePowerForShort = firePowerDao.getFirePowerByNumber(Integer.valueOf(number));
+        Double latitude = firePowerForShort.getStateLatitude();
+        Double longitude = firePowerForShort.getStateLongitude();
+        String jsonToSpaceSituationFirePower =
+                "{\"latitude\": \"" + latitude + "\", " +
+                        "\"longitude\": \"" + longitude + "\", " +
+                        "}";
+
+        String jsonToSpaceSituationTarget =
                 "{\"radial_distance\": \"" + radialDistance + "\", " +
                 "\"polar_angle\": \"" + polarAngle + "\", " +
                 "\"azimut_angle\": \"" + azimuthAngle + "\"" +
                 "}";
-        spaceSituationClient.sendToSpaceSituation(jsonToSpaceSituation);
+        spaceSituationClient.sendToSpaceSituation(jsonToSpaceSituationTarget, jsonToSpaceSituationFirePower);
 
         // шлем на центр контроля сообщение что выстрелили
         controlCenterClient.sendToControlCenter("Success");

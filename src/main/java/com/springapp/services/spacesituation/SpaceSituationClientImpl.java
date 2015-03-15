@@ -28,12 +28,13 @@ public class SpaceSituationClientImpl implements SpaceSituationClient {
     private ControlCenterClient controlCenterClient;
 
     @Override
-    public void sendToSpaceSituation(String json) {
+    public void sendToSpaceSituation(String targets, String firepower) {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(spaceSituationServiceUrl + "/kill");
 
             List<NameValuePair> nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("json", json));
+            nameValuePairs.add(new BasicNameValuePair("targets", targets));
+            nameValuePairs.add(new BasicNameValuePair("firepower", firepower));
 
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, Consts.UTF_8));
 

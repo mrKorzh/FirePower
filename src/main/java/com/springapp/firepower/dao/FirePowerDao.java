@@ -11,4 +11,6 @@ public interface FirePowerDao {
 
     List<FirePower> selectFirePowers();
 
+    FirePower getFirePowerByNumber(int number);
+
 }

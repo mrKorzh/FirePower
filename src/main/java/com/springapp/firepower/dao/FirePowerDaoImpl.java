@@ -87,4 +87,14 @@ public class FirePowerDaoImpl implements FirePowerDao {
         }
         return firePowerList;
     }
+
+    @Override
+    public FirePower getFirePowerByNumber(int number) {
+        String sql = "SELECT * FROM firepowers WHERE number = ?";
+
+        FirePower firePower = (FirePower)jdbcTemplate.queryForObject(
+                sql, new Object[] { number }, new FirePowerRowMapper());
+
+        return firePower;
+    }
 }
